@@ -26,3 +26,6 @@ By the end of this bootcamp you should be able to:
 - Completed modules 00 → 08
 - Final project in `final_project/`
 - Clear READMEs and runnable code
+
+## Git requirement
+- Complete `09_git/` early (Day 0/Day 1) so you can work via branches + PRs.
