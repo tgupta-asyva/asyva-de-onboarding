@@ -24,20 +24,20 @@
 
 #### 5\. **Users:** OLTP is designed for frontline employees and customers. OLAP is designed for knowledge workers, executives and analysts.
 
-#### 6\. **Data Volume:** OLTP manages small, transactional updates, whereas OLAP deals with large volumes of data (terabytes/petabytes). 
+#### 6\. **Data Volume:** OLTP manages small, transactional updates, whereas OLAP deals with large volumes of data (terabytes/petabytes).
 
 #### **Examples**
 
 #### **OLTP:** Processing a credit card transaction, booking a flight, updating inventory, bank transfers.
 
-#### **OLAP:** Analyzing sales trends over the past five years, creating monthly financial reports, data mining. 
+#### **OLAP:** Analyzing sales trends over the past five years, creating monthly financial reports, data mining.
 
 #### **Summary Table**
 
 |**Feature**|**OLTP (Online Transaction Processing)**|**OLAP (Online Analytical Processing)**|
 |-|-|-|
 |**Goal**|Run daily operations|Data analysis \& reporting|
-|**Data**	|Current, real-time|Historical, consolidated|
+|**Data**|Current, real-time|Historical, consolidated|
 |**Operation**|Short, fast transactions|Complex, long-running queries|
 |**Speed**|Milliseconds|Seconds to Minutes|
 |**Structure**|Normalized (Relational)|Denormalized (Warehouse)|
@@ -45,9 +45,72 @@
 
 ###### 
 
-**OLTP feeds on  Bronze/ Silver layers while OLAP lives mostly in Gold layer.**
+**\* OLTP feeds on  Bronze/ Silver layers while OLAP lives mostly in Gold layer.**
 
 #### 
+
+#### **Schema Used**
+
+1. ## **OLTP:**
+
+##### 
+
+#### **Schema Characteristics:**
+
+* ##### Highly normalized (usually 3NF or higher) to reduce redundancy.
+* ##### Optimized for insert, update, delete operations (fast transactions).
+* ##### Contains many small tables with relationships.
+
+##### 
+
+#### **Common Schema Types:**
+
+* ##### ER (Entity-Relationship) schema is often used.
+* Relational schema in normalized form.
+  
+  ---
+
+##### Example: Tables like Customer, Order, Product, Payment, all normalized to avoid redundancy.
+
+##### 
+
+Key Point: Focus is transaction efficiency and data integrity, not analytical queries.
+
+---
+
+##### **2. OLAP:**
+
+##### 
+
+#### **Schema Characteristics:**
+
+* ##### Denormalized to optimize query performance.
+* ##### Often fewer tables, with star or snowflake schema.
+* ##### Data is often stored in fact and dimension tables.
+
+
+
+#### **Common Schema Types:**
+
+
+
+1. ##### **Star Schema**
+
+* ##### Fact table at the center (contains measures like sales, quantity).
+* ##### Dimension tables around it (like Product, Customer, Time).
+* ##### Simple and fast for queries.
+
+##### 
+
+##### **2. Snowflake Schema**
+
+* ##### A more normalized version of star schema.
+* ##### Dimension tables can have sub-dimensions (hierarchies).
+* ##### Slightly more complex but saves storage.
+
+##### 
+
+
 
 ###### **Data Pipeline:-** A data pipeline is an automated system of technologies and processes that ingests, moves, transforms, and loads raw data from various sources (APIs, databases, files) into a destination like a data warehouse or data lake for analysis, machine learning, and reporting.
 
@@ -63,9 +126,9 @@
 
 ###### 4\. **Pipeline Types:**
 
-###### 	**Batch Processing:** Moves data in large, scheduled blocks.
+###### **Batch Processing:** Moves data in large, scheduled blocks.
 
-###### &nbsp;	**Real-time/Streaming:** Processes data continuously as it is generated.
+######  	**Real-time/Streaming:** Processes data continuously as it is generated.
 
 
 
@@ -75,13 +138,13 @@
 
 ###### 2\. **Data Quality:** Standardizes formats and reduces errors.
 
-###### 3\. **Accessibility:** Centralizes disparate (means fundamentally different or distinct) data sources for faster insights. 
+###### 3\. **Accessibility:** Centralizes disparate (means fundamentally different or distinct) data sources for faster insights.
 
 ### 
 
 ###### **Common Tools**
 
-###### Common technologies for building pipelines include Apache Airflow, dbt, Fivetran, Python scripts and cloud-native services (AWS Glue, Azure Data Factory). 
+###### Common technologies for building pipelines include Apache Airflow, dbt, Fivetran, Python scripts and cloud-native services (AWS Glue, Azure Data Factory).
 
 
 
@@ -89,7 +152,7 @@
 
 
 
-###### Batch processing handles large data volumes in scheduled groups with high latency (minutes/hours) for accuracy (e.g., monthly reports), while streaming processes data continuously as it arrives, offering low latency (milliseconds/seconds) for real-time insights (e.g., fraud detection). Batch is simpler for bulk tasks, while streaming requires complex, continuous infrastructure to manage real-time flow and late data, with modern tools offering unified solutions. 
+###### Batch processing handles large data volumes in scheduled groups with high latency (minutes/hours) for accuracy (e.g., monthly reports), while streaming processes data continuously as it arrives, offering low latency (milliseconds/seconds) for real-time insights (e.g., fraud detection). Batch is simpler for bulk tasks, while streaming requires complex, continuous infrastructure to manage real-time flow and late data, with modern tools offering unified solutions.
 
 
 
@@ -103,7 +166,7 @@
 
 ###### **Pros:** Simpler to manage, cost-effective for large historical analysis, ensures data completeness and accuracy for bulk tasks.
 
-###### **Cons:** Not suitable for immediate decisions. 
+###### **Cons:** Not suitable for immediate decisions.
 
 
 
@@ -117,7 +180,7 @@
 
 ###### **Pros:** Immediate insights, real-time responsiveness.
 
-###### **Cons:** More complex infrastructure, handling out-of-order or late data is challenging. 
+###### **Cons:** More complex infrastructure, handling out-of-order or late data is challenging.
 
 
 
@@ -129,13 +192,13 @@
 
 ###### **Infrastructure:** Batch has predictable, simpler needs; streaming requires complex, constantly running distributed systems.
 
-###### **Accuracy vs. Freshness:** Batch prioritizes accuracy over freshness; streaming prioritizes freshness (real-time) over perfect batch-level accuracy. 
+###### **Accuracy vs. Freshness:** Batch prioritizes accuracy over freshness; streaming prioritizes freshness (real-time) over perfect batch-level accuracy.
 
 
 
 #### **Modern Approaches**
 
-###### **Hybrid/Unified:** Tools like Databricks and Flink allow handling both, often using streaming frameworks to achieve batch-like results or Kappa architecture, treating everything as streams for simplicity. 
+###### **Hybrid/Unified:** Tools like Databricks and Flink allow handling both, often using streaming frameworks to achieve batch-like results or Kappa architecture, treating everything as streams for simplicity.
 
 
 
@@ -183,7 +246,7 @@
 
 1. ##### **Choose ETL when:** You have limited bandwidth, require highly complex transformations, need to conform to strict data privacy regulations, or use legacy on-premise data systems.
 
-##### 2\. **Choose ELT when:** You are using cloud data warehouses, working with massive, unstructured datasets, need real-time or near-real-time data, or require high flexibility for data analysis. 
+##### 2\. **Choose ELT when:** You are using cloud data warehouses, working with massive, unstructured datasets, need real-time or near-real-time data, or require high flexibility for data analysis.
 
 ##### 
 
@@ -221,7 +284,7 @@
 
 
 
-#### &nbsp;		
+####  
 
 #### Q3. Write architecture.md answering (in your own words):
 
@@ -235,7 +298,7 @@
 
 ##### **Ans.** In Bronze layer, raw data is ingested from multiple source like MySQL, databases, APIs and streaming systems with little or no transformation. This layer stores data in its original format mainly for backup and traceability.
 
-##### In  Silver layer, data from bronze layer is cleaned, validated and transformed based on business requirements. Schema consistency is applied and data quality issues are resolved, making the data reliable and usable. 
+##### In  Silver layer, data from bronze layer is cleaned, validated and transformed based on business requirements. Schema consistency is applied and data quality issues are resolved, making the data reliable and usable.
 
 ##### In Gold layer, the refined data is optimized for analytics, reporting and dashboards.
 
@@ -243,9 +306,5 @@
 
 #### (c) Where data quality checks should live and why?
 
-#### Ans. Data quality checks should live in Silver Layer as this is where data is cleaned, validated, deduplicated and transformed according to the business rules, to ensure accuracy before analytics. 
-
-
-
-
+#### Ans. Data quality checks should live in Silver Layer as this is where data is cleaned, validated, deduplicated and transformed according to the business rules, to ensure accuracy before analytics.
 
